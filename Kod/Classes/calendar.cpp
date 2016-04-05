@@ -36,7 +36,7 @@ void print_event(Event& event)
 int main()
 {
 	string event;
-	vector<Event> events; // mamy worek na wydarzenia kt�re chcemy zapami�ta�
+	vector<Event> events; // mamy worek na wydarzenia które chcemy zapamiêtaæ
 
 	while(1)
 	{
@@ -63,14 +63,14 @@ int main()
 		events.push_back(event);	// wrzucamy wydarzenie do worka
 	}
 	
-	// je�li worek nie jest pusty 
+	// jeœli worek nie jest pusty 
 	if ( !events.empty() )
 		cout << "Your calendar: " << endl;
 	
 	// size - zwraca rozmiar worka
-	// p�tla jest identyczna jak przy tablicy
+	// pêtla jest identyczna jak przy tablicy
 	for( int i = 0; i < events.size(); i++ )
-		print_event(events[i]); // odwo�ujemy si� jak do tablicy
+		print_event(events[i]); // odwo³ujemy siê jak do tablicy
 	
 	system("pause");
 	
@@ -78,17 +78,30 @@ int main()
 	//events.begin() -> to pierwszy element (czyli indeks 0)
 	//events.begin() + x -> to elementu o numerze x (czyli indeks x - 1)
 	for( vector<Event>::iterator it = events.begin();
-		 it != events.end(); it++ ) // taki wska�nik, kt�ry przesuwamy od pocz�tku do ko�ca
+		 it != events.end(); it++ ) // taki wskaŸnik, który przesuwamy od pocz¹tku do koñca
 	{
-		print_event(*it); // tutaj do elementu odwo�ujemy si� jak do wska�nika 
+		print_event(*it); // tutaj do elementu odwo³ujemy siê jak do wskaŸnika 
 	}
 	return 0;
 }
 
 bool check(string& birth)
 {
+stringstream st(birth);						//nie podoba mi się że jeszcze raz używam tego samego co poniżej
+	Date user;									
+	st >> user.day;
+	st.ignore(1);
+	st >> user.month;
+	st.ignore(1);
+	st >> user.year;
 	
+	if ((user.day > 29 && user.month == 2) || user.day > 31 || user.month > 12 || user.year > 3000)	{ 	//jeśli dzień jest większy od 31 lub miesiąc większy od 12 oczywiście kontrola lutego, no i można dopisać inne mieisące
+	cout << "Incorect data format or range" << endl;		//to wyświetla komunikat i zwraca false
+	return false;
+	}
+	else {
 	return true;
+	}
 }
 
 Date create(string& birth)
